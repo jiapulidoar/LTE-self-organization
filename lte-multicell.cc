@@ -11,9 +11,127 @@
 #include "ns3/config-store.h"
 #include "ns3/gnuplot.h"
 #include <math.h>
+#include "ns3/opengym-module.h"
+#include "ns3/node-list.h"
+
+
 using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("LteMulticell");
+uint16_t numberOfNodes = 3;
+std::vector<uint16_t> ueIdxConnection;
+
+
+Ptr<OpenGymSpace> MyGetObservationSpace(void)
+{
+  float low = 0.0;
+  float high = 100.0;
+  uint32_t nodeNum = numberOfNodes * 3;
+  std::vector<uint32_t> shape = {nodeNum,};
+  std::string dtype = TypeNameGet<uint32_t> ();
+  Ptr<OpenGymBoxSpace> space = CreateObject<OpenGymBoxSpace> (low, high, shape, dtype);
+  NS_LOG_UNCOND ("MyGetObservationSpace: " << space);
+  return space;
+}
+
+/*
+Define action space
+*/
+Ptr<OpenGymSpace> MyGetActionSpace(void)
+{
+  uint32_t nodeNum = numberOfNodes * 3;
+  float low = 0.0;
+  float high = 100.0;
+  std::vector<uint32_t> shape = {nodeNum,};
+  std::string dtype = TypeNameGet<uint32_t> ();
+  Ptr<OpenGymBoxSpace> space = CreateObject<OpenGymBoxSpace> (low, high, shape, dtype);
+  NS_LOG_UNCOND ("MyGetActionSpace: " << space);
+  return space;
+}
+
+/*
+Define game over condition
+*/
+bool MyGetGameOver(void)
+{
+  bool isGameOver = false;
+  NS_LOG_UNCOND ("MyGetGameOver: " << isGameOver);
+  return isGameOver;
+}
+
+
+
+/*
+Collect observations
+*/
+Ptr<OpenGymDataContainer> MyGetObservation(void)
+{
+
+  uint32_t nodeNum = numberOfNodes * 3;
+  std::vector<uint32_t> shape = {nodeNum,};
+  Ptr<OpenGymBoxContainer<uint32_t> > box = CreateObject<OpenGymBoxContainer<uint32_t> >(shape);
+  
+  for (int i=0; i < nodeNum ; i++)
+    box->AddValue(ueIdxConnection[i]);
+  NS_LOG_UNCOND ("MyGetObservation: " << box);
+  return box;
+}
+
+
+/*
+Define reward function
+*/
+uint64_t g_rxPktNum = 0;
+float MyGetReward(void)
+{
+  static float lastValue = 0.0;
+  lastValue++;
+  float reward = g_rxPktNum - lastValue;
+  lastValue = g_rxPktNum;
+   NS_LOG_UNCOND ("Reward: " << g_rxPktNum);
+  return reward;
+}
+
+/*
+Define extra info. Optional
+*/
+std::string MyGetExtraInfo(void)
+{
+  std::string myInfo = "taller2 ";
+  myInfo += "|123";
+  NS_LOG_UNCOND("MyGetExtraInfo: " << myInfo);
+  return myInfo;
+}
+
+
+/*
+Execute received actions
+*/
+
+MobilityHelper mobility;
+bool MyExecuteActions(Ptr<OpenGymDataContainer> action)
+{
+  NS_LOG_UNCOND ("MyExecuteActions: " << action);
+
+  Ptr<OpenGymBoxContainer<uint32_t> > box = DynamicCast<OpenGymBoxContainer<uint32_t> >(action);
+  std::vector<uint32_t> actionVector = box->GetData();
+
+  
+  
+  
+
+  return true;
+}
+
+
+
+void ScheduleNextStateRead(double envStepTime, Ptr<OpenGymInterface> openGym)
+{
+  Simulator::Schedule (Seconds(envStepTime), &ScheduleNextStateRead, envStepTime, openGym);
+
+  openGym->NotifyCurrentState();
+}
+
 
 void plotDevices(NodeContainer Nodes, NodeContainer ueNodes, Gnuplot2dDataset dataset_graph)
 {
@@ -80,7 +198,7 @@ void plotDevices(NodeContainer Nodes, NodeContainer ueNodes, Gnuplot2dDataset da
     
 
         // Open the plot file.
-        std::ofstream plotFile(plotFileName.c_str());
+    std::ofstream plotFile(plotFileName.c_str());
 
     // Write the plot file.
     plot.GenerateOutput(plotFile);
@@ -89,14 +207,17 @@ void plotDevices(NodeContainer Nodes, NodeContainer ueNodes, Gnuplot2dDataset da
     plotFile.close();
 }
 
+
 int main(int argc, char *argv[])
 {
-    int f_RandomPositionAllocator = 1;
 
+    uint32_t openGymPort = 5555;
+    int f_RandomPositionAllocator = 1;
+    double envStepTime = 0.1; //seconds, ns3gym env step time interval
     RngSeedManager::SetSeed(3); // Changes seed from default of 1 to 3
     RngSeedManager::SetRun(7);  // Changes run number from default of 1 to 7
 
-    uint16_t numberOfNodes = 3;
+
     double simTime = 1.1;
     double interPacketInterval = 1;
 
@@ -216,7 +337,7 @@ int main(int argc, char *argv[])
         uint16_t enbid = ceil(v->GetValue() * numberOfNodes) - 1;
 
         lteHelper->Attach(ueLteDevs.Get(i), enbLteDevs.Get(enbid));
-
+        ueIdxConnection.push_back(enbid);
         // get points
         Ptr<Node> ueNode = ueNodes.Get(i);
         Ptr<MobilityModel> mob_ue = ueNode->GetObject<MobilityModel>();
@@ -256,9 +377,22 @@ int main(int argc, char *argv[])
     clientApps.Start(Seconds(0.01));
     lteHelper->EnableTraces();
 
-    Simulator::Stop(Seconds(simTime));
-    Simulator::Run();
 
+    Ptr<OpenGymInterface> openGymInterface = CreateObject<OpenGymInterface> (openGymPort);
+    openGymInterface->SetGetActionSpaceCb( MakeCallback (&MyGetActionSpace) );
+    openGymInterface->SetGetObservationSpaceCb( MakeCallback (&MyGetObservationSpace) );
+    openGymInterface->SetGetGameOverCb( MakeCallback (&MyGetGameOver) );
+    openGymInterface->SetGetObservationCb( MakeCallback (&MyGetObservation) );
+    openGymInterface->SetGetRewardCb( MakeCallback (&MyGetReward) );
+    openGymInterface->SetGetExtraInfoCb( MakeCallback (&MyGetExtraInfo) );
+    openGymInterface->SetExecuteActionsCb( MakeCallback (&MyExecuteActions) );
+
+    Simulator::Schedule (Seconds(0.0), &ScheduleNextStateRead, envStepTime, openGymInterface);
+
+    NS_LOG_UNCOND ("Simulation start");
+    Simulator::Stop (Seconds (simTime));
+    Simulator::Run ();
+  
     Ptr<PacketSink> sink = serverApps.Get(0)->GetObject<PacketSink>();
     NS_LOG_UNCOND("UE1 throughput :" << sink->GetTotalRx() * 8.0 / 1000000.0 << " Mbps");
 
@@ -277,6 +411,10 @@ int main(int argc, char *argv[])
     Ptr<PacketSink> sink5 = serverApps.Get(5)->GetObject<PacketSink>();
     NS_LOG_UNCOND("UE6 throughput :" << sink5->GetTotalRx() * 8.0 / 1000000.0 << " Mbps");
 
-    Simulator::Destroy();
+    NS_LOG_UNCOND ("Simulation stop");
+
+    openGymInterface->NotifySimulationEnd();
+    Simulator::Destroy ();
+
     return 0;
 }
