@@ -205,8 +205,9 @@ int main(int argc, char *argv[])
     // Attach one UE per eNodeB
 
     Gnuplot2dDataset dataset_graph;
-    //dataset_graph.SetExtra("linetype 0");vec
+    dataset_graph.SetStyle(Gnuplot2dDataset::VECTORS);  // update gnuplot.h gnuplot.cc 
     dataset_graph.SetErrorBars(Gnuplot2dDataset::XY);
+    dataset_graph.SetTitle("Conexión");
 
     for (uint16_t i = 0; i < ueNodes.GetN(); i++)
     {
