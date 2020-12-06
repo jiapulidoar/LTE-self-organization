@@ -9,10 +9,118 @@
 #include "ns3/applications-module.h"
 #include "ns3/point-to-point-helper.h"
 #include "ns3/config-store.h"
+#include "ns3/opengym-module.h"
+#include "ns3/node-list.h"
+
+
+
 
 using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("LteMulticell");
+
+
+
+Ptr<OpenGymSpace> MyGetObservationSpace(void)
+{
+  uint32_t nodeNum = 1;
+  float low = 0.0;
+  float high = 100.0;
+  std::vector<uint32_t> shape = {nodeNum,};
+  std::string dtype = TypeNameGet<uint32_t> ();
+  Ptr<OpenGymBoxSpace> space = CreateObject<OpenGymBoxSpace> (low, high, shape, dtype);
+  NS_LOG_UNCOND ("MyGetObservationSpace: " << space);
+  return space;
+}
+
+/*
+Define action space
+*/
+Ptr<OpenGymSpace> MyGetActionSpace(void)
+{
+  uint32_t nodeNum = 1;
+  float low = 0.0;
+  float high = 100.0;
+  std::vector<uint32_t> shape = {nodeNum,};
+  std::string dtype = TypeNameGet<uint32_t> ();
+  Ptr<OpenGymBoxSpace> space = CreateObject<OpenGymBoxSpace> (low, high, shape, dtype);
+  NS_LOG_UNCOND ("MyGetActionSpace: " << space);
+  return space;
+}
+
+/*
+Define game over condition
+*/
+bool MyGetGameOver(void)
+{
+  bool isGameOver = false;
+  NS_LOG_UNCOND ("MyGetGameOver: " << isGameOver);
+  return isGameOver;
+}
+
+
+
+/*
+Collect observations
+*/
+Ptr<OpenGymDataContainer> MyGetObservation(void)
+{
+  uint32_t nodeNum = 1;
+  std::vector<uint32_t> shape = {nodeNum,};
+  Ptr<OpenGymBoxContainer<uint32_t> > box = CreateObject<OpenGymBoxContainer<uint32_t> >(shape);
+  uint32_t value = 32;
+  box->AddValue(value);
+
+
+  NS_LOG_UNCOND ("MyGetObservation: " << box);
+  return box;
+}
+
+
+/*
+Define reward function
+*/
+uint64_t g_rxPktNum = 0;
+float MyGetReward(void)
+{
+  static float lastValue = 0.0;
+  float reward = g_rxPktNum - lastValue;
+  lastValue = g_rxPktNum;
+   NS_LOG_UNCOND ("Reward: " << g_rxPktNum);
+  return reward;
+}
+
+/*
+Define extra info. Optional
+*/
+std::string MyGetExtraInfo(void)
+{
+  std::string myInfo = "taller2 ";
+  myInfo += "|123";
+  NS_LOG_UNCOND("MyGetExtraInfo: " << myInfo);
+  return myInfo;
+}
+
+
+/*
+Execute received actions
+*/
+
+MobilityHelper mobility;
+bool MyExecuteActions(Ptr<OpenGymDataContainer> action)
+{
+  NS_LOG_UNCOND ("MyExecuteActions: " << action);
+
+  Ptr<OpenGymBoxContainer<uint32_t> > box = DynamicCast<OpenGymBoxContainer<uint32_t> >(action);
+  std::vector<uint32_t> actionVector = box->GetData();
+
+  
+  
+  
+
+  return true;
+}
+
 
 int main(int argc, char *argv[])
 {
