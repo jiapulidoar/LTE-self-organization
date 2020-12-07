@@ -3,6 +3,8 @@
 
 import argparse
 from ns3gym import ns3env
+import random
+from random import randrange
 
 __author__ = "Piotr Gawlowicz"
 __copyright__ = "Copyright (c) 2018, Technische Universität Berlin"
@@ -43,21 +45,50 @@ print("Action space: ", ac_space, ac_space.dtype)
 
 stepIdx = 0
 currIt = 0
-
 try:
     while True:
         print("Start iteration: ", currIt)
         obs = env.reset()
         print("Step: ", stepIdx)
         print("---obs:", obs)
-
+        action = []
+        for el in obs:
+            action.append(el)
         while True:
             stepIdx += 1
-            action = env.action_space.sample()
-            print("---action: ", action)
+            
 
+            print("---action: ", action)
+            number_towers = int(len(obs)/3)
+
+
+            graph = [[] for _ in range(number_towers)]
+            
+
+            for i, node in enumerate(obs):
+                graph[node].append(i)
+
+            # random.choice(sequence)
+
+            chosen_tower = randrange(number_towers)
+            candidates = []
+
+            for i in range(number_towers):
+                if i == chosen_tower:
+                    continue
+                for ue in graph[i]:
+                    candidates.append(ue)
+            
+            chosen_ue = random.choice(candidates)
+            print(chosen_ue)
+            old_connection = action[chosen_ue]
+            action[chosen_ue] = chosen_tower
+              
+            print("new action", action)
             print("Step: ", stepIdx)
+
             obs, reward, done, info = env.step(action)
+
             print("---obs, reward, done, info: ", obs, reward, done, info)
 
             if done:
@@ -65,7 +96,8 @@ try:
                 if currIt + 1 < iterationNum:
                     env.reset()
                 break
-
+            if reward < 0:
+                actoin[chosen_ue] = old_connection
         currIt += 1
         if currIt == iterationNum:
             break
