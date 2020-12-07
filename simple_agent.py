@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# -- coding: utf-8 --
 
 import argparse
 from ns3gym import ns3env
 import random
 from random import randrange
 
-__author__ = "Piotr Gawlowicz"
-__copyright__ = "Copyright (c) 2018, Technische Universität Berlin"
-__version__ = "0.1.0"
-__email__ = "gawlowicz@tkn.tu-berlin.de"
+_author_ = "Piotr Gawlowicz"
+_copyright_ = "Copyright (c) 2018, Technische Universität Berlin"
+_version_ = "0.1.0"
+_email_ = "gawlowicz@tkn.tu-berlin.de"
 
 
 parser = argparse.ArgumentParser(description='Start simulation script on/off')
@@ -26,14 +26,15 @@ startSim = bool(args.start)
 iterationNum = int(args.iterations)
 
 port = 5555
-simTime = 20 # seconds
+simTime = 20  # seconds
 stepTime = 0.5  # seconds
 seed = 0
 simArgs = {"--simTime": simTime,
            "--testArg": 123}
 debug = False
 
-env = ns3env.Ns3Env(port=port, stepTime=stepTime, startSim=startSim, simSeed=seed, simArgs=simArgs, debug=debug)
+env = ns3env.Ns3Env(port=port, stepTime=stepTime, startSim=startSim,
+                    simSeed=seed, simArgs=simArgs, debug=debug)
 # simpler:
 #env = ns3env.Ns3Env()
 env.reset()
@@ -54,36 +55,45 @@ try:
         action = []
         for el in obs:
             action.append(el)
+        visited = []
+        str1 = ''.join(str(e) for e in action)
+        visited.append(str1)   
+
         while True:
             stepIdx += 1
-            
 
             print("---action: ", action)
             number_towers = int(len(obs)/3)
 
-
             graph = [[] for _ in range(number_towers)]
-            
 
             for i, node in enumerate(obs):
                 graph[node].append(i)
 
             # random.choice(sequence)
+            while True:
+                chosen_tower = randrange(number_towers)
+                candidates = []
 
-            chosen_tower = randrange(number_towers)
-            candidates = []
+                for i in range(number_towers):
+                    if i == chosen_tower:
+                        continue
+                    for ue in graph[i]:
+                        candidates.append(ue)
 
-            for i in range(number_towers):
-                if i == chosen_tower:
+                chosen_ue = random.choice(candidates)
+                print(chosen_ue)
+                old_connection = action[chosen_ue]
+                action[chosen_ue] = chosen_tower
+
+                str1 = ''.join(str(e) for e in action)
+                if str1 in visited:
+                    action[chosen_ue] = old_connection
                     continue
-                for ue in graph[i]:
-                    candidates.append(ue)
-            
-            chosen_ue = random.choice(candidates)
-            print(chosen_ue)
-            old_connection = action[chosen_ue]
-            action[chosen_ue] = chosen_tower
-              
+                else:
+                    visited.append(str1)
+                    break
+
             print("new action", action)
             print("Step: ", stepIdx)
 
@@ -97,7 +107,7 @@ try:
                     env.reset()
                 break
             if reward < 0:
-                actoin[chosen_ue] = old_connection
+                action[chosen_ue] = old_connection
         currIt += 1
         if currIt == iterationNum:
             break

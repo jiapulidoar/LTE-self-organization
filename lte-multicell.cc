@@ -20,17 +20,26 @@ NS_LOG_COMPONENT_DEFINE("LteMulticell");
 uint16_t numberOfNodes = 3;
 NodeContainer ueNodes;
 NodeContainer enbNodes;
+
 std::vector<double> throughput;
+
+float last_throughput = 0;
+int name = 0;
 Ptr<LteUeRrc> lteuerrc = CreateObject<LteUeRrc>();
 Ptr<LteHelper> lteHelper = CreateObject<LteHelper>();
 
 NetDeviceContainer enbLteDevs;
 NetDeviceContainer ueLteDevs;
+enum EpsBearer::Qci q = EpsBearer::GBR_CONV_VOICE;
+EpsBearer bearer(q);
 
 ApplicationContainer clientApps;
 ApplicationContainer serverApps;
 
 std::vector<uint16_t> ueIdxConnection;
+
+void plotDevices();
+void setThroughput();
 
 template <typename T>
 std::string to_string_with_precision(const T a_value, const int n = 6)
@@ -41,17 +50,17 @@ std::string to_string_with_precision(const T a_value, const int n = 6)
   return out.str();
 }
 
-void handler()
+void handler(int ue, int enb)
 {
 
   NS_LOG_UNCOND("Handler");
 
-  Ptr<LteUeNetDevice> ueLteDevice = ueLteDevs.Get(4)->GetObject<LteUeNetDevice>();
+  Ptr<LteUeNetDevice> ueLteDevice = ueLteDevs.Get(ue)->GetObject<LteUeNetDevice>();
   lteuerrc = ueLteDevice->GetRrc();
 
   lteuerrc->ReleaseRrcResource();
 
-  lteHelper->Attach(ueLteDevs.Get(4), enbLteDevs.Get(0));
+  lteHelper->Attach(ueLteDevs.Get(ue), enbLteDevs.Get(enb));
 }
 
 static const std::string g_ueRrcStateName[LteUeRrc::NUM_STATES] =
@@ -147,14 +156,22 @@ Ptr<OpenGymDataContainer> MyGetObservation(void)
 /*
 Define reward function
 */
-uint64_t g_rxPktNum = 0;
 float MyGetReward(void)
 {
-  static float lastValue = 0.0;
-  lastValue++;
-  float reward = g_rxPktNum - lastValue;
-  lastValue = g_rxPktNum;
-  NS_LOG_UNCOND("Reward: " << g_rxPktNum);
+  float avg = 0;
+  for (int i = 0; i < (int)throughput.size(); i++)
+  {
+    avg += throughput[i];
+  }
+  avg /= throughput.size();
+
+  float reward = avg - last_throughput;
+  NS_LOG_UNCOND("Reward: " << reward);
+
+  if (reward > 0)
+  {
+    last_throughput = avg;
+  }
   return reward;
 }
 
@@ -176,10 +193,21 @@ Execute received actions
 MobilityHelper mobility;
 bool MyExecuteActions(Ptr<OpenGymDataContainer> action)
 {
+  plotDevices();
+  //setThroughput();
   NS_LOG_UNCOND("MyExecuteActions: " << action);
 
   Ptr<OpenGymBoxContainer<uint32_t>> box = DynamicCast<OpenGymBoxContainer<uint32_t>>(action);
   std::vector<uint32_t> actionVector = box->GetData();
+
+  for (int i = 0; i < (int)ueIdxConnection.size(); i++)
+  {
+    if (ueIdxConnection[i] != actionVector[i])
+    {
+      handler(i, actionVector[i]);
+      ueIdxConnection[i] = actionVector[i];
+    }
+  }
 
   return true;
 }
@@ -197,7 +225,7 @@ void setThroughput()
   for (uint32_t u = 0; u < ueNodes.GetN(); ++u)
   {
     Ptr<PacketSink> sink = serverApps.Get(u)->GetObject<PacketSink>();
-    NS_LOG_UNCOND("UE" << u + 1 << " throughput :" <<(sink->GetTotalRx() * 8.0 / 1000000.0) - throughput[u]<< " Mbps " );
+    NS_LOG_UNCOND("UE" << u + 1 << " throughput :" << (sink->GetTotalRx() * 8.0 / 1000000.0) - throughput[u] << " Mbps ");
 
     throughput[u] = (sink->GetTotalRx() * 8.0 / 1000000.0) - throughput[u];
   }
@@ -208,7 +236,7 @@ void plotDevices()
 
   setThroughput();
 
-  std::string fileNameWithNoExtension = "nodes";
+  std::string fileNameWithNoExtension = "nodes" + std::to_string(name++);
   std::string graphicsFileName = fileNameWithNoExtension + ".png";
   std::string plotFileName = fileNameWithNoExtension + ".plt";
   std::string plotTitle = "2-D Plot";
@@ -293,6 +321,8 @@ void plotDevices()
     NS_LOG_UNCOND("ENB" << cellid << ",UE" << u + 1);
   }
 
+  plot.AppendExtra("set label 'avg = " + std::to_string(last_throughput) + "' at  -1,1");
+
   // Add the dataset to the plot.
   plot.AddDataset(dataset_graph);
   plot.AddDataset(dataset2);
@@ -312,15 +342,15 @@ void plotDevices()
 */
 int main(int argc, char *argv[])
 {
-  //LogComponentEnable("LteUeRrc",LOG_LEVEL_INFO);
+  LogComponentEnable("EpcTftClassifier",LOG_LEVEL_INFO);
 
   uint32_t openGymPort = 5555;
   int f_RandomPositionAllocator = 1;
-  //double envStepTime = 0.1;   //seconds, ns3gym env step time interval
+  double envStepTime = 0.5;   //seconds, ns3gym env step time interval
   RngSeedManager::SetSeed(2); // Changes seed from default of 1 to 3
   RngSeedManager::SetRun(7);  // Changes run number from default of 1 to 7
 
-  double simTime = 2;
+  double simTime = 5.5;
   double interPacketInterval = 1;
 
   // Command line arguments
@@ -363,7 +393,7 @@ int main(int argc, char *argv[])
 
   for (uint32_t u = 0; u < ueNodes.GetN(); ++u)
     throughput.push_back(0);
-  
+
   // Install Mobility Model
   Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator>();
   positionAlloc->Add(Vector(-1.0, 0.0, 0.0)); //for enb 1
@@ -433,8 +463,11 @@ int main(int argc, char *argv[])
     uint16_t enbid = ceil(v->GetValue() * numberOfNodes) - 1;
 
     lteHelper->Attach(ueLteDevs.Get(i), enbLteDevs.Get(enbid));
+
     ueIdxConnection.push_back(enbid);
   }
+
+  lteHelper->ActivateDedicatedEpsBearer(ueLteDevs, bearer, EpcTft::Default());
 
   // Install and start applications on UEs and remote host
   uint16_t dlPort = 1234;
@@ -465,14 +498,23 @@ int main(int argc, char *argv[])
 
   Config::Connect("/NodeList/*/DeviceList/*/LteUeRrc/StateTransition",
                   MakeCallback(&StateTransitionCallback));
-  //Simulator::Schedule(Seconds(0.0), &ScheduleNextStateRead, envStepTime, openGymInterface);
+  Simulator::Schedule(Seconds(0.5), &ScheduleNextStateRead, envStepTime, openGymInterface);
 
-  Simulator::Schedule(Seconds(1), &plotDevices);
-  Simulator::Schedule(Seconds(1), &handler);
+  //Simulator::Schedule(Seconds(1), &plotDevices);
+  //Simulator::Schedule(Seconds(1), &handler);
 
   NS_LOG_UNCOND("Simulation start");
   Simulator::Stop(Seconds(simTime));
   Simulator::Run();
+
+  float avg = 0;
+  for (int i = 0; i < (int)throughput.size(); i++)
+  {
+    avg += throughput[i];
+  }
+  avg /= throughput.size();
+
+  last_throughput = avg;
 
   plotDevices();
 
