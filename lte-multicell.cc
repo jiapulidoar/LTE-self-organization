@@ -342,7 +342,7 @@ void plotDevices()
 */
 int main(int argc, char *argv[])
 {
-  LogComponentEnable("EpcTftClassifier",LOG_LEVEL_INFO);
+  //LogComponentEnable("EpcTftClassifier",LOG_LEVEL_INFO);
 
   uint32_t openGymPort = 5555;
   int f_RandomPositionAllocator = 1;
