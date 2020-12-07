@@ -306,9 +306,9 @@ void plotDevices()
     Ptr<NetDevice> ueDevice = ueNodes.Get(u)->GetDevice(0);
     Ptr<LteUeNetDevice> ueLteDevice = ueDevice->GetObject<LteUeNetDevice>();
     lteuerrc = ueLteDevice->GetRrc();
-    int cellid = lteuerrc->GetCellId();
+    int cellid = ueIdxConnection[u];
 
-    Ptr<Node> enbNode = enbNodes.Get(cellid - 1);
+    Ptr<Node> enbNode = enbNodes.Get(cellid);
     Ptr<MobilityModel> mob_enb = enbNode->GetObject<MobilityModel>();
 
     double x = mob->GetPosition().x;
@@ -342,7 +342,7 @@ void plotDevices()
 */
 int main(int argc, char *argv[])
 {
-  LogComponentEnable("EpcTftClassifier",LOG_LEVEL_INFO);
+  //LogComponentEnable("EpcTftClassifier",LOG_LEVEL_INFO);
 
   uint32_t openGymPort = 5555;
   int f_RandomPositionAllocator = 1;
