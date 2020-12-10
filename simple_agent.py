@@ -81,6 +81,8 @@ try:
                     for ue in graph[i]:
                         candidates.append(ue)
 
+                if(len(candidates) == 0):
+                    continue
                 chosen_ue = random.choice(candidates)
                 print(chosen_ue)
                 old_connection = action[chosen_ue]

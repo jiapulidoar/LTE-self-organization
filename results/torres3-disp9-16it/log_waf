@@ -1,0 +1,506 @@
+Simulation start
+ UE IMSI 1 CellId 1 RNTI 3 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 3 CellId 1 RNTI 4 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 4 CellId 1 RNTI 1 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 7 CellId 1 RNTI 2 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 2 CellId 2 RNTI 2 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 6 CellId 2 RNTI 1 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 8 CellId 2 RNTI 3 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 9 CellId 2 RNTI 18 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 5 CellId 3 RNTI 6 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+MyGetObservationSpace:  BoxSpace Low: 0 High: 100 Shape: (9,) Dtype: uint32_t
+MyGetActionSpace:  BoxSpace Low: 0 High: 100 Shape: (9,) Dtype: uint32_t
+Simulation process id: 50315 (parent (waf shell) id: 50285)
+Waiting for Python process to connect on port: tcp://localhost:5555
+Please start proper Python Gym Agent
+MyGetObservation: [0, 1, 0, 0, 2, 1, 0, 1, 1]
+Reward: 0
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :0.671744 Mbps 
+UE2 throughput :0.139264 Mbps 
+UE3 throughput :0 Mbps 
+UE4 throughput :0.237568 Mbps 
+UE5 throughput :0 Mbps 
+UE6 throughput :0.385024 Mbps 
+UE7 throughput :2.048 Mbps 
+UE8 throughput :1.62202 Mbps 
+UE9 throughput :0 Mbps 
+0,0.000000
+ENB0,UE1
+ENB1,UE2
+ENB0,UE3
+ENB0,UE4
+ENB2,UE5
+ENB1,UE6
+ENB0,UE7
+ENB1,UE8
+ENB1,UE9
+MyExecuteActions: [0, 1, 0, 0, 2, 2, 0, 1, 1]
+Handler
+ UE IMSI 6 CellId 2 RNTI 1 State changed from: CONNECTED_NORMALLY to: IDLE_START
+ UE IMSI 6 CellId 3 RNTI 7 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+MyGetObservation: [0, 1, 0, 0, 2, 2, 0, 1, 1]
+Reward: 0.567068
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :0.393216 Mbps 
+UE2 throughput :0.114688 Mbps 
+UE3 throughput :0 Mbps 
+UE4 throughput :0.08192 Mbps 
+UE5 throughput :0 Mbps 
+UE6 throughput :0.679936 Mbps 
+UE7 throughput :2.16269 Mbps 
+UE8 throughput :1.17965 Mbps 
+UE9 throughput :0 Mbps 
+1,0.567068
+ENB0,UE1
+ENB1,UE2
+ENB0,UE3
+ENB0,UE4
+ENB2,UE5
+ENB2,UE6
+ENB0,UE7
+ENB1,UE8
+ENB1,UE9
+MyExecuteActions: [0, 1, 0, 0, 2, 0, 0, 1, 1]
+Handler
+ UE IMSI 6 CellId 3 RNTI 7 State changed from: CONNECTED_NORMALLY to: IDLE_START
+ UE IMSI 6 CellId 1 RNTI 5 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+MyGetObservation: [0, 1, 0, 0, 2, 0, 0, 1, 1]
+Reward: -0.0546134
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :0.999424 Mbps 
+UE2 throughput :0.229376 Mbps 
+UE3 throughput :0 Mbps 
+UE4 throughput :0.278528 Mbps 
+UE5 throughput :0 Mbps 
+UE6 throughput :0.385024 Mbps 
+UE7 throughput :4.18611 Mbps 
+UE8 throughput :3.08019 Mbps 
+UE9 throughput :0 Mbps 
+2,0.567068
+ENB0,UE1
+ENB1,UE2
+ENB0,UE3
+ENB0,UE4
+ENB2,UE5
+ENB0,UE6
+ENB0,UE7
+ENB1,UE8
+ENB1,UE9
+MyExecuteActions: [0, 1, 0, 0, 2, 2, 0, 2, 1]
+Handler
+ UE IMSI 6 CellId 1 RNTI 5 State changed from: CONNECTED_NORMALLY to: IDLE_START
+Handler
+ UE IMSI 8 CellId 2 RNTI 3 State changed from: CONNECTED_NORMALLY to: IDLE_START
+ UE IMSI 6 CellId 3 RNTI 9 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 8 CellId 3 RNTI 49 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+MyGetObservation: [0, 1, 0, 0, 2, 2, 0, 2, 1]
+Reward: 0.45056
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :0.786432 Mbps 
+UE2 throughput :0.221184 Mbps 
+UE3 throughput :0 Mbps 
+UE4 throughput :0.12288 Mbps 
+UE5 throughput :0 Mbps 
+UE6 throughput :1.40083 Mbps 
+UE7 throughput :4.33357 Mbps 
+UE8 throughput :1.17965 Mbps 
+UE9 throughput :0 Mbps 
+3,1.017628
+ENB0,UE1
+ENB1,UE2
+ENB0,UE3
+ENB0,UE4
+ENB2,UE5
+ENB2,UE6
+ENB0,UE7
+ENB2,UE8
+ENB1,UE9
+MyExecuteActions: [0, 1, 0, 0, 2, 2, 0, 0, 1]
+Handler
+ UE IMSI 8 CellId 3 RNTI 49 State changed from: CONNECTED_NORMALLY to: IDLE_START
+ UE IMSI 3 CellId 1 RNTI 4 State changed from: CONNECTED_NORMALLY to: CONNECTED_PHY_PROBLEM
+ UE IMSI 8 CellId 1 RNTI 31 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 3 CellId 3 RNTI 50 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+MyGetObservation: [0, 1, 0, 0, 2, 2, 0, 0, 1]
+Reward: -0.12379
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :1.46637 Mbps 
+UE2 throughput :0.679936 Mbps 
+UE3 throughput :0.08192 Mbps 
+UE4 throughput :0.319488 Mbps 
+UE5 throughput :0 Mbps 
+UE6 throughput :1.14688 Mbps 
+UE7 throughput :6.7584 Mbps 
+UE8 throughput :3.08019 Mbps 
+UE9 throughput :0 Mbps 
+4,1.017628
+ENB0,UE1
+ENB1,UE2
+ENB0,UE3
+ENB0,UE4
+ENB2,UE5
+ENB2,UE6
+ENB0,UE7
+ENB0,UE8
+ENB1,UE9
+MyExecuteActions: [0, 1, 0, 0, 2, 2, 2, 2, 1]
+Handler
+ UE IMSI 7 CellId 1 RNTI 2 State changed from: CONNECTED_NORMALLY to: IDLE_START
+Handler
+ UE IMSI 8 CellId 1 RNTI 31 State changed from: CONNECTED_NORMALLY to: IDLE_START
+ UE IMSI 9 CellId 2 RNTI 18 State changed from: CONNECTED_NORMALLY to: CONNECTED_PHY_PROBLEM
+ UE IMSI 5 CellId 3 RNTI 6 State changed from: CONNECTED_NORMALLY to: CONNECTED_PHY_PROBLEM
+ UE IMSI 9 CellId 1 RNTI 32 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 7 CellId 3 RNTI 62 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 5 CellId 1 RNTI 33 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+MyGetObservation: [0, 1, 0, 0, 2, 2, 2, 2, 1]
+Reward: 0.486059
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :1.15507 Mbps 
+UE2 throughput :0.458752 Mbps 
+UE3 throughput :0.53248 Mbps 
+UE4 throughput :0.147456 Mbps 
+UE5 throughput :0.188416 Mbps 
+UE6 throughput :1.81862 Mbps 
+UE7 throughput :4.33357 Mbps 
+UE8 throughput :1.17965 Mbps 
+UE9 throughput :0.499712 Mbps 
+5,1.503687
+ENB0,UE1
+ENB1,UE2
+ENB0,UE3
+ENB0,UE4
+ENB2,UE5
+ENB2,UE6
+ENB2,UE7
+ENB2,UE8
+ENB1,UE9
+MyExecuteActions: [0, 1, 0, 0, 2, 2, 2, 2, 0]
+Handler
+ UE IMSI 9 CellId 1 RNTI 32 State changed from: CONNECTED_NORMALLY to: IDLE_START
+ UE IMSI 8 CellId 3 RNTI 95 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 9 CellId 1 RNTI 34 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+MyGetObservation: [0, 1, 0, 0, 2, 2, 2, 2, 0]
+Reward: -0.357717
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :1.76128 Mbps 
+UE2 throughput :1.04038 Mbps 
+UE3 throughput :0.458752 Mbps 
+UE4 throughput :0.344064 Mbps 
+UE5 throughput :0.57344 Mbps 
+UE6 throughput :1.45818 Mbps 
+UE7 throughput :6.7584 Mbps 
+UE8 throughput :3.08019 Mbps 
+UE9 throughput :0.6144 Mbps 
+6,1.503687
+ENB0,UE1
+ENB1,UE2
+ENB0,UE3
+ENB0,UE4
+ENB2,UE5
+ENB2,UE6
+ENB2,UE7
+ENB2,UE8
+ENB0,UE9
+MyExecuteActions: [0, 0, 0, 0, 2, 2, 2, 2, 1]
+Handler
+ UE IMSI 2 CellId 2 RNTI 2 State changed from: CONNECTED_NORMALLY to: IDLE_START
+Handler
+ UE IMSI 9 CellId 1 RNTI 34 State changed from: CONNECTED_NORMALLY to: IDLE_START
+ UE IMSI 2 CellId 1 RNTI 35 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 9 CellId 2 RNTI 20 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+MyGetObservation: [0, 0, 0, 0, 2, 2, 2, 2, 1]
+Reward: 0.283989
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :1.37626 Mbps 
+UE2 throughput :0.458752 Mbps 
+UE3 throughput :0.925696 Mbps 
+UE4 throughput :0.196608 Mbps 
+UE5 throughput :0.688128 Mbps 
+UE6 throughput :2.22822 Mbps 
+UE7 throughput :4.33357 Mbps 
+UE8 throughput :1.17965 Mbps 
+UE9 throughput :0.499712 Mbps 
+7,1.787676
+ENB0,UE1
+ENB0,UE2
+ENB0,UE3
+ENB0,UE4
+ENB2,UE5
+ENB2,UE6
+ENB2,UE7
+ENB2,UE8
+ENB1,UE9
+MyExecuteActions: [0, 0, 0, 0, 2, 2, 2, 2, 2]
+Handler
+ UE IMSI 9 CellId 2 RNTI 20 State changed from: CONNECTED_NORMALLY to: IDLE_START
+MyGetObservation: [0, 0, 0, 0, 2, 2, 2, 2, 2]
+Reward: -0.466944
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :2.03981 Mbps 
+UE2 throughput :1.04038 Mbps 
+UE3 throughput :0.811008 Mbps 
+UE4 throughput :0.385024 Mbps 
+UE5 throughput :1.20422 Mbps 
+UE6 throughput :1.78586 Mbps 
+UE7 throughput :6.7584 Mbps 
+UE8 throughput :3.08019 Mbps 
+UE9 throughput :0.6144 Mbps 
+8,1.787676
+ENB0,UE1
+ENB0,UE2
+ENB0,UE3
+ENB0,UE4
+ENB2,UE5
+ENB2,UE6
+ENB2,UE7
+ENB2,UE8
+ENB2,UE9
+MyExecuteActions: [0, 0, 0, 0, 2, 2, 0, 2, 1]
+Handler
+ UE IMSI 7 CellId 3 RNTI 62 State changed from: CONNECTED_NORMALLY to: IDLE_START
+Handler
+ UE IMSI 9 CellId 3 RNTI 108 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 7 CellId 1 RNTI 36 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+MyGetObservation: [0, 0, 0, 0, 2, 2, 0, 2, 1]
+Reward: 0.181134
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :1.62202 Mbps 
+UE2 throughput :0.458752 Mbps 
+UE3 throughput :1.29434 Mbps 
+UE4 throughput :0.221184 Mbps 
+UE5 throughput :1.28614 Mbps 
+UE6 throughput :2.71155 Mbps 
+UE7 throughput :5.53779 Mbps 
+UE8 throughput :1.17965 Mbps 
+UE9 throughput :0.499712 Mbps 
+9,1.968811
+ENB0,UE1
+ENB0,UE2
+ENB0,UE3
+ENB0,UE4
+ENB2,UE5
+ENB2,UE6
+ENB0,UE7
+ENB2,UE8
+ENB1,UE9
+MyExecuteActions: [0, 0, 1, 0, 2, 2, 0, 2, 1]
+Handler
+ UE IMSI 3 CellId 3 RNTI 50 State changed from: CONNECTED_NORMALLY to: IDLE_START
+ UE IMSI 3 CellId 2 RNTI 21 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 8 CellId 3 RNTI 95 State changed from: CONNECTED_NORMALLY to: CONNECTED_PHY_PROBLEM
+ UE IMSI 8 CellId 2 RNTI 22 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+MyGetObservation: [0, 0, 1, 0, 2, 2, 0, 2, 1]
+Reward: -0.323129
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :2.29376 Mbps 
+UE2 throughput :1.04038 Mbps 
+UE3 throughput :1.04858 Mbps 
+UE4 throughput :0.425984 Mbps 
+UE5 throughput :1.70394 Mbps 
+UE6 throughput :2.40026 Mbps 
+UE7 throughput :8.21658 Mbps 
+UE8 throughput :3.15392 Mbps 
+UE9 throughput :0.6144 Mbps 
+10,1.968811
+ENB0,UE1
+ENB0,UE2
+ENB1,UE3
+ENB0,UE4
+ENB2,UE5
+ENB2,UE6
+ENB0,UE7
+ENB2,UE8
+ENB1,UE9
+MyExecuteActions: [0, 0, 0, 0, 2, 1, 0, 2, 1]
+Handler
+ UE IMSI 3 CellId 2 RNTI 21 State changed from: CONNECTED_NORMALLY to: IDLE_START
+Handler
+ UE IMSI 6 CellId 3 RNTI 9 State changed from: CONNECTED_NORMALLY to: IDLE_START
+ UE IMSI 3 CellId 1 RNTI 37 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 6 CellId 2 RNTI 23 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 2 CellId 1 RNTI 35 State changed from: CONNECTED_NORMALLY to: CONNECTED_PHY_PROBLEM
+ UE IMSI 2 CellId 3 RNTI 109 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+MyGetObservation: [0, 0, 0, 0, 2, 1, 0, 2, 1]
+Reward: 0.353166
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :1.85139 Mbps 
+UE2 throughput :0.688128 Mbps 
+UE3 throughput :1.29434 Mbps 
+UE4 throughput :0.237568 Mbps 
+UE5 throughput :1.71213 Mbps 
+UE6 throughput :2.80986 Mbps 
+UE7 throughput :6.90586 Mbps 
+UE8 throughput :2.38387 Mbps 
+UE9 throughput :0.499712 Mbps 
+11,2.321977
+ENB0,UE1
+ENB0,UE2
+ENB0,UE3
+ENB0,UE4
+ENB2,UE5
+ENB1,UE6
+ENB0,UE7
+ENB2,UE8
+ENB1,UE9
+MyExecuteActions: [0, 0, 0, 0, 2, 1, 1, 2, 1]
+Handler
+ UE IMSI 7 CellId 1 RNTI 36 State changed from: CONNECTED_NORMALLY to: IDLE_START
+ UE IMSI 7 CellId 2 RNTI 27 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+MyGetObservation: [0, 0, 0, 0, 2, 1, 1, 2, 1]
+Reward: -0.279438
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :2.58867 Mbps 
+UE2 throughput :1.93331 Mbps 
+UE3 throughput :1.04858 Mbps 
+UE4 throughput :0.458752 Mbps 
+UE5 throughput :2.26918 Mbps 
+UE6 throughput :2.5641 Mbps 
+UE7 throughput :8.21658 Mbps 
+UE8 throughput :4.3008 Mbps 
+UE9 throughput :0.6144 Mbps 
+12,2.321977
+ENB0,UE1
+ENB0,UE2
+ENB0,UE3
+ENB0,UE4
+ENB2,UE5
+ENB1,UE6
+ENB1,UE7
+ENB2,UE8
+ENB1,UE9
+MyExecuteActions: [0, 0, 0, 2, 2, 1, 0, 2, 1]
+Handler
+ UE IMSI 4 CellId 1 RNTI 1 State changed from: CONNECTED_NORMALLY to: IDLE_START
+Handler
+ UE IMSI 7 CellId 2 RNTI 27 State changed from: CONNECTED_NORMALLY to: IDLE_START
+ UE IMSI 7 CellId 1 RNTI 38 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 4 CellId 3 RNTI 110 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 9 CellId 3 RNTI 108 State changed from: CONNECTED_NORMALLY to: CONNECTED_PHY_PROBLEM
+ UE IMSI 9 CellId 1 RNTI 39 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+MyGetObservation: [0, 0, 0, 2, 2, 1, 0, 2, 1]
+Reward: 0.344064
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :2.10534 Mbps 
+UE2 throughput :1.29434 Mbps 
+UE3 throughput :1.29434 Mbps 
+UE4 throughput :0.663552 Mbps 
+UE5 throughput :2.20365 Mbps 
+UE6 throughput :3.03104 Mbps 
+UE7 throughput :8.02816 Mbps 
+UE8 throughput :3.73555 Mbps 
+UE9 throughput :0.663552 Mbps 
+13,2.666041
+ENB0,UE1
+ENB0,UE2
+ENB0,UE3
+ENB2,UE4
+ENB2,UE5
+ENB1,UE6
+ENB0,UE7
+ENB2,UE8
+ENB1,UE9
+MyExecuteActions: [1, 0, 0, 2, 2, 1, 0, 2, 1]
+Handler
+ UE IMSI 1 CellId 1 RNTI 3 State changed from: CONNECTED_NORMALLY to: IDLE_START
+ UE IMSI 1 CellId 2 RNTI 35 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+MyGetObservation: [1, 0, 0, 2, 2, 1, 0, 2, 1]
+Reward: -0.108317
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :2.58867 Mbps 
+UE2 throughput :2.51494 Mbps 
+UE3 throughput :1.04858 Mbps 
+UE4 throughput :1.04038 Mbps 
+UE5 throughput :2.7607 Mbps 
+UE6 throughput :2.67878 Mbps 
+UE7 throughput :9.69114 Mbps 
+UE8 throughput :5.49683 Mbps 
+UE9 throughput :1.25338 Mbps 
+14,2.666041
+ENB1,UE1
+ENB0,UE2
+ENB0,UE3
+ENB2,UE4
+ENB2,UE5
+ENB1,UE6
+ENB0,UE7
+ENB2,UE8
+ENB1,UE9
+MyExecuteActions: [0, 0, 0, 2, 2, 1, 0, 0, 1]
+Handler
+ UE IMSI 1 CellId 2 RNTI 35 State changed from: CONNECTED_NORMALLY to: IDLE_START
+Handler
+ UE IMSI 8 CellId 2 RNTI 22 State changed from: CONNECTED_NORMALLY to: IDLE_START
+ UE IMSI 1 CellId 1 RNTI 40 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 8 CellId 1 RNTI 47 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+ UE IMSI 3 CellId 1 RNTI 37 State changed from: CONNECTED_NORMALLY to: CONNECTED_PHY_PROBLEM
+ UE IMSI 3 CellId 3 RNTI 111 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+MyGetObservation: [0, 0, 0, 2, 2, 1, 0, 0, 1]
+Reward: 0.564337
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+UE1 throughput :2.40026 Mbps 
+UE2 throughput :1.82682 Mbps 
+UE3 throughput :1.39264 Mbps 
+UE4 throughput :1.19603 Mbps 
+UE5 throughput :2.82624 Mbps 
+UE6 throughput :3.26861 Mbps 
+UE7 throughput :9.84678 Mbps 
+UE8 throughput :3.73555 Mbps 
+UE9 throughput :1.44998 Mbps 
+15,3.230379
+ENB0,UE1
+ENB0,UE2
+ENB0,UE3
+ENB2,UE4
+ENB2,UE5
+ENB1,UE6
+ENB0,UE7
+ENB0,UE8
+ENB1,UE9
+MyExecuteActions: [0, 0, 1, 2, 2, 1, 0, 0, 1]
+Handler
+ UE IMSI 3 CellId 3 RNTI 111 State changed from: CONNECTED_NORMALLY to: IDLE_START
+ UE IMSI 3 CellId 2 RNTI 36 State changed from: IDLE_CONNECTING to: CONNECTED_NORMALLY
+UE1 throughput :2.9737 Mbps 
+UE2 throughput :3.05562 Mbps 
+UE3 throughput :1.1305 Mbps 
+UE4 throughput :1.58106 Mbps 
+UE5 throughput :3.50618 Mbps 
+UE6 throughput :2.79347 Mbps 
+UE7 throughput :11.8129 Mbps 
+UE8 throughput :5.49683 Mbps 
+UE9 throughput :2.17907 Mbps 
+16,3.104768
+ENB0,UE1
+ENB0,UE2
+ENB1,UE3
+ENB2,UE4
+ENB2,UE5
+ENB1,UE6
+ENB0,UE7
+ENB0,UE8
+ENB1,UE9
+Simulation stop
+Wait for stop message
+MyGetObservation: [0, 0, 1, 2, 2, 1, 0, 0, 1]
+Reward: 0.731819
+MyGetGameOver: 0
+MyGetExtraInfo: taller2 |123
+

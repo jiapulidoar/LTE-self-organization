@@ -1,0 +1,93 @@
+Observation space:  Box(0, 100, (6,), uint64) uint64
+Action space:  Box(0, 100, (6,), uint64) uint64
+Start iteration:  0
+Step:  0
+---obs: [1, 0, 0, 0, 0, 0]
+---action:  [1, 0, 0, 0, 0, 0]
+2
+new action [1, 0, 1, 0, 0, 0]
+Step:  1
+---obs, reward, done, info:  [1, 0, 1, 0, 0, 0] 0.33587202429771423 False taller2 |123
+---action:  [1, 0, 1, 0, 0, 0]
+4
+new action [1, 0, 1, 0, 1, 0]
+Step:  2
+---obs, reward, done, info:  [1, 0, 1, 0, 1, 0] 0.002730637788772583 False taller2 |123
+---action:  [1, 0, 1, 0, 1, 0]
+4
+4
+4
+1
+new action [1, 1, 1, 0, 1, 0]
+Step:  3
+---obs, reward, done, info:  [1, 1, 1, 0, 1, 0] 0.3181226849555969 False taller2 |123
+---action:  [1, 1, 1, 0, 1, 0]
+1
+4
+new action [1, 1, 1, 0, 0, 0]
+Step:  4
+---obs, reward, done, info:  [1, 1, 1, 0, 0, 0] 0.010922670364379883 False taller2 |123
+---action:  [1, 1, 1, 0, 0, 0]
+5
+new action [1, 1, 1, 0, 0, 1]
+Step:  5
+---obs, reward, done, info:  [1, 1, 1, 0, 0, 1] 0.5761706233024597 False taller2 |123
+---action:  [1, 1, 1, 0, 0, 1]
+5
+1
+new action [1, 0, 1, 0, 0, 1]
+Step:  6
+---obs, reward, done, info:  [1, 0, 1, 0, 0, 1] 0.0914773941040039 False taller2 |123
+---action:  [1, 0, 1, 0, 0, 1]
+2
+new action [1, 0, 0, 0, 0, 1]
+Step:  7
+---obs, reward, done, info:  [1, 0, 0, 0, 0, 1] 0.5038081407546997 False taller2 |123
+---action:  [1, 0, 0, 0, 0, 1]
+0
+new action [0, 0, 0, 0, 0, 1]
+Step:  8
+---obs, reward, done, info:  [0, 0, 0, 0, 0, 1] 0.14062929153442383 False taller2 |123
+---action:  [0, 0, 0, 0, 0, 1]
+1
+new action [0, 1, 0, 0, 0, 1]
+Step:  9
+---obs, reward, done, info:  [0, 1, 0, 0, 0, 1] 0.5065386295318604 False taller2 |123
+---action:  [0, 1, 0, 0, 0, 1]
+1
+4
+new action [0, 1, 0, 0, 1, 1]
+Step:  10
+---obs, reward, done, info:  [0, 1, 0, 0, 1, 1] 0.03686380386352539 False taller2 |123
+---action:  [0, 1, 0, 0, 1, 1]
+4
+1
+new action [0, 0, 0, 0, 1, 1]
+Step:  11
+---obs, reward, done, info:  [0, 0, 0, 0, 1, 1] 0.4423680305480957 False taller2 |123
+---action:  [0, 0, 0, 0, 1, 1]
+2
+new action [0, 0, 1, 0, 1, 1]
+Step:  12
+---obs, reward, done, info:  [0, 0, 1, 0, 1, 1] 0.05734419822692871 False taller2 |123
+---action:  [0, 0, 1, 0, 1, 1]
+5
+new action [0, 0, 1, 0, 1, 0]
+Step:  13
+---obs, reward, done, info:  [0, 0, 1, 0, 1, 0] 0.4341762065887451 False taller2 |123
+---action:  [0, 0, 1, 0, 1, 0]
+2
+new action [0, 0, 0, 0, 1, 0]
+Step:  14
+---obs, reward, done, info:  [0, 0, 0, 0, 1, 0] -0.02048015594482422 False taller2 |123
+---action:  [0, 0, 1, 0, 1, 0]
+1
+new action [0, 1, 1, 0, 1, 0]
+Step:  15
+---obs, reward, done, info:  [0, 1, 1, 0, 1, 0] 0.16930103302001953 False taller2 |123
+---action:  [0, 1, 1, 0, 1, 0]
+4
+new action [0, 1, 1, 0, 0, 0]
+Step:  16
+---obs, reward, done, info:  [0, 1, 1, 0, 0, 0] 0.22118401527404785 True taller2 |123
+Done

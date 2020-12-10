@@ -17,7 +17,7 @@
 using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("LteMulticell");
-uint16_t numberOfNodes = 3;
+uint16_t numberOfNodes = 6;
 NodeContainer ueNodes;
 NodeContainer enbNodes;
 
@@ -86,6 +86,7 @@ static const std::string &ToString(LteUeRrc::State s)
 
 static void StateTransitionCallback(std::string context, uint64_t imsi, uint16_t cellId, uint16_t rnti, LteUeRrc::State oldState, LteUeRrc::State newState)
 {
+  if(newState==9 || oldState == 9 )
   std::cout << " UE IMSI " << imsi
             << " CellId " << cellId
             << " RNTI " << rnti
@@ -229,6 +230,9 @@ void setThroughput()
 
     throughput[u] = (sink->GetTotalRx() * 8.0 / 1000000.0) - throughput[u];
   }
+
+   NS_LOG_UNCOND(std::to_string(name)  + ',' +  std::to_string(last_throughput) );
+
 }
 
 void plotDevices()
@@ -350,7 +354,7 @@ int main(int argc, char *argv[])
   RngSeedManager::SetSeed(2); // Changes seed from default of 1 to 3
   RngSeedManager::SetRun(7);  // Changes run number from default of 1 to 7
 
-  double simTime = 5.5;
+  double simTime = 25.5;
   double interPacketInterval = 1;
 
   // Command line arguments
