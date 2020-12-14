@@ -17,7 +17,7 @@
 using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("LteMulticell");
-uint16_t numberOfNodes = 6;
+uint16_t numberOfNodes = 2;
 NodeContainer ueNodes;
 NodeContainer enbNodes;
 
@@ -165,7 +165,6 @@ float MyGetReward(void)
     avg += throughput[i];
   }
   avg /= throughput.size();
-
   float reward = avg - last_throughput;
   NS_LOG_UNCOND("Reward: " << reward);
 
@@ -349,12 +348,11 @@ int main(int argc, char *argv[])
   //LogComponentEnable("EpcTftClassifier",LOG_LEVEL_INFO);
 
   uint32_t openGymPort = 5555;
-  int f_RandomPositionAllocator = 1;
-  double envStepTime = 0.5;   //seconds, ns3gym env step time interval
-  RngSeedManager::SetSeed(2); // Changes seed from default of 1 to 3
-  RngSeedManager::SetRun(7);  // Changes run number from default of 1 to 7
+  int f_RandomPositionAllocator = 1, seed = 2, seed_run=7;
+  double envStepTime = 1;   //seconds, ns3gym env step time interval
 
-  double simTime = 25.5;
+
+  double simTime = 5.5;
   double interPacketInterval = 1;
 
   // Command line arguments
@@ -362,7 +360,12 @@ int main(int argc, char *argv[])
   cmd.AddValue("numberOfNodes", "Number of eNodeBs + UE pairs", numberOfNodes);
   cmd.AddValue("simTime", "Total duration of the simulation [s])", simTime);
   cmd.AddValue("interPacketInterval", "Inter packet interval [ms])", interPacketInterval);
+  cmd.AddValue("Seed", "Seed of simulation", seed);
   cmd.Parse(argc, argv);
+
+
+  RngSeedManager::SetSeed(seed); // Changes seed from default of 1 to 3
+  RngSeedManager::SetRun(seed_run);  // Changes run number from default of 1 to 7
 
   //float p = 1 / numberOfNodes;
 
@@ -402,7 +405,9 @@ int main(int argc, char *argv[])
   Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator>();
   positionAlloc->Add(Vector(-1.0, 0.0, 0.0)); //for enb 1
   positionAlloc->Add(Vector(1.0, 0.0, 0.0));  //for enb 2
-  positionAlloc->Add(Vector(0.0, 0.0, 0.0));  //for enb 2
+  positionAlloc->Add(Vector(0.0, 0.0, 0.0));  //for enb 3
+  positionAlloc->Add(Vector(0.0, -1.0, 0.0));  //for enb 4
+  positionAlloc->Add(Vector(0.0, 1.0, 0.0));  //for enb 5
 
   MobilityHelper mobility;
   mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
@@ -502,7 +507,7 @@ int main(int argc, char *argv[])
 
   Config::Connect("/NodeList/*/DeviceList/*/LteUeRrc/StateTransition",
                   MakeCallback(&StateTransitionCallback));
-  Simulator::Schedule(Seconds(0.5), &ScheduleNextStateRead, envStepTime, openGymInterface);
+  Simulator::Schedule(Seconds(1), &ScheduleNextStateRead, envStepTime, openGymInterface);
 
   //Simulator::Schedule(Seconds(1), &plotDevices);
   //Simulator::Schedule(Seconds(1), &handler);
