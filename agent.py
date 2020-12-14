@@ -6,10 +6,9 @@ from ns3gym import ns3env
 import random
 from random import randrange
 
-_author_ = "Piotr Gawlowicz"
-_copyright_ = "Copyright (c) 2018, Technische Universität Berlin"
+_author_ = "Sebastian Jimmy"
 _version_ = "0.1.0"
-_email_ = "gawlowicz@tkn.tu-berlin.de"
+_email_ = "jiapulidoar@unal.edu.co"
 
 
 parser = argparse.ArgumentParser(description='Start simulation script on/off')
